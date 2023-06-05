@@ -2,11 +2,6 @@
 using NotificationAPI.Domain;
 using NotificationAPI.Domain.Exceptions;
 using NotificationAPI.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotificationAPI.Persistence.Repositories
 {
@@ -38,7 +33,7 @@ namespace NotificationAPI.Persistence.Repositories
         public async Task RemoveAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException(id);
             }

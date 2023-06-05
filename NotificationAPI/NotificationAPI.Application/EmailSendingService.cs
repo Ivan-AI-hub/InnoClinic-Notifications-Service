@@ -2,11 +2,11 @@
 
 namespace NotificationAPI.Application
 {
-    public class EmailSenderService : IEmailSendingService
+    public class EmailSendingService : IEmailSendingService
     {
         private readonly IEmailService _emailService;
 
-        public EmailSenderService(IEmailService emailService)
+        public EmailSendingService(IEmailService emailService)
         {
             _emailService = emailService;
         }

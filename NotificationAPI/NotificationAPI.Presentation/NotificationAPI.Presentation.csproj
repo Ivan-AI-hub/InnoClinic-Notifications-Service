@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
+    <PackageReference Include="SharedEvents.Models" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationAPI.Application.Abstraction\NotificationAPI.Application.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

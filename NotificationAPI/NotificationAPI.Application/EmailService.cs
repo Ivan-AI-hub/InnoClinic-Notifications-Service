@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using NotificationAPI.Application.Abstraction;
-using NotificationAPI.Presentation.Settings;
+using NotificationAPI.Application.Settings;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
 
-namespace NotificationAPI.Presentation
+namespace NotificationAPI.Application
 {
     public class EmailService : IEmailService
     {
