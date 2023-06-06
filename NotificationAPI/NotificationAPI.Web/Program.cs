@@ -1,4 +1,5 @@
 using NotificationAPI.Application.Mappings;
+using NotificationAPI.Application.Settings;
 using NotificationAPI.Web.Extensions;
 using NotificationAPI.Web.Middlewares;
 
@@ -8,6 +9,8 @@ builder.Services.ConfigureMassTransit(builder.Configuration, "MassTransitSetting
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureServices();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettingsConfig"));
 
 builder.Services.AddAutoMapper(typeof(ApplicationMappingProfile));
 var app = builder.Build();

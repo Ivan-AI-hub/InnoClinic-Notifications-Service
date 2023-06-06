@@ -4,9 +4,9 @@ using NotificationAPI.Domain;
 
 namespace NotificationAPI.Persistence.EntityConfigurations
 {
-    internal class UserConfigurator : IEntityTypeConfiguration<User>
+    internal class PatientConfigurator : IEntityTypeConfiguration<Patient>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Patient> builder)
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Email).IsUnique();

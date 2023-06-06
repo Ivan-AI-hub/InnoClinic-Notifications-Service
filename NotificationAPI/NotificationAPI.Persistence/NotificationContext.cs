@@ -10,11 +10,11 @@ namespace NotificationAPI.Persistence
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Patient> Patients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfigurator());
+            modelBuilder.ApplyConfiguration(new PatientConfigurator());
         }
     }
 }

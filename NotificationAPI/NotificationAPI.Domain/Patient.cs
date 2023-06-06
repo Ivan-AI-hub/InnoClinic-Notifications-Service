@@ -1,11 +1,12 @@
 ﻿namespace NotificationAPI.Domain
 {
-    public class User
+    public class Patient
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Email { get; private set; }
 
-        public User(string email)
+        private Patient() { }
+        public Patient(string email)
         {
             Email = email;
         }

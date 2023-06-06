@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotificationAPI.Persistence.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20230605124350_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230606075651_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace NotificationAPI.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("NotificationAPI.Domain.User", b =>
+            modelBuilder.Entity("NotificationAPI.Domain.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace NotificationAPI.Persistence.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Patients");
                 });
 #pragma warning restore 612, 618
         }

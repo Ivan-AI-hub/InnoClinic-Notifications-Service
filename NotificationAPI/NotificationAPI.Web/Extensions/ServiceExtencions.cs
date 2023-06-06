@@ -21,20 +21,20 @@ namespace NotificationAPI.Web.Extensions
         }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
         }
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailSendingService, EmailSendingService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPatientService, PatientService>();
         }
         public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration, string massTransitSettingsName)
         {
             var settings = configuration.GetSection(massTransitSettingsName).Get<MassTransitSettings>();
             services.AddMassTransit(x =>
             {
-                x.AddConsumersFromNamespaceContaining<UserCreatedConsumer>();
+                x.AddConsumersFromNamespaceContaining<PatientCreatedConsumer>();
                 x.AddConsumeObserver<ConsumeObserver>();
                 x.UsingRabbitMq((context, cfg) =>
                 {

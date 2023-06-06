@@ -6,9 +6,9 @@ namespace NotificationAPI.Application.Mappings
 {
     public class ApplicationMappingProfile : Profile
     {
-        protected ApplicationMappingProfile()
+        public ApplicationMappingProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Patient, PatientDTO>().ReverseMap();
         }
     }
 }

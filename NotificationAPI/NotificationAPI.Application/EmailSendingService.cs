@@ -20,8 +20,7 @@ namespace NotificationAPI.Application
                               $"Doctor: {doctorFullName}\n" +
                               $"Date: {date.ToShortDateString()}\n" +
                               $"Time: {date.TimeOfDay}\n" +
-                              $"Service: {serviceName}\n",
-                              "");
+                              $"Service: {serviceName}\n");
         }
 
         public async Task SendAppointmentResultMessage(string to, string complaints, string conclusion, string recomendations)
@@ -30,15 +29,13 @@ namespace NotificationAPI.Application
                               "Appointment result!!!!!!",
                               $"Complaints: {complaints}\n" +
                               $"Conclusion: {conclusion}\n" +
-                              $"Recomendations: {recomendations}\n",
-                              "");
+                              $"Recomendations: {recomendations}\n");
         }
 
         public async Task SendVerifyEmailMessage(string to, string confirmEmailUrl)
         {
             await _emailService.SendAsync(to,
                               "Confirm email address",
-                              "",
                               $"<a href='{confirmEmailUrl}'>Тыкни чтобы подтвердить</a>");
         }
     }

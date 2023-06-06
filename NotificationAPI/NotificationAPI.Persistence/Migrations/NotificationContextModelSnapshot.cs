@@ -22,7 +22,7 @@ namespace NotificationAPI.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("NotificationAPI.Domain.User", b =>
+            modelBuilder.Entity("NotificationAPI.Domain.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,7 +37,7 @@ namespace NotificationAPI.Persistence.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Patients");
                 });
 #pragma warning restore 612, 618
         }

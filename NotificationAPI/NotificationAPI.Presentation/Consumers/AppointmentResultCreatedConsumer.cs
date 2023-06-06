@@ -7,19 +7,19 @@ namespace NotificationAPI.Presentation.Consumers
     public class AppointmentResultCreatedConsumer : IConsumer<AppointmentResultCreated>
     {
         private readonly IEmailSendingService _emailSendingService;
-        private readonly IUserService _userService;
+        private readonly IPatientService _patientService;
 
-        public AppointmentResultCreatedConsumer(IEmailSendingService emailSendingService, IUserService userService)
+        public AppointmentResultCreatedConsumer(IEmailSendingService emailSendingService, IPatientService patientService)
         {
             _emailSendingService = emailSendingService;
-            _userService = userService;
+            _patientService = patientService;
         }
 
         public async Task Consume(ConsumeContext<AppointmentResultCreated> context)
         {
             var message = context.Message;
-            var user = await _userService.GetByIdAsync(message.PatientId);
-            await _emailSendingService.SendAppointmentResultMessage(user.Email, message.Complaints, message.Conclusion, message.Recomendations);
+            var patient = await _patientService.GetByIdAsync(message.PatientId);
+            await _emailSendingService.SendAppointmentResultMessage(patient.Email, message.Complaints, message.Conclusion, message.Recomendations);
         }
     }
 }
