@@ -1,9 +1,9 @@
-﻿using MailKit.Security;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using NotificationAPI.Application.Abstraction;
 using NotificationAPI.Application.Settings;
-using MailKit.Net.Smtp;
 
 namespace NotificationAPI.Application
 {

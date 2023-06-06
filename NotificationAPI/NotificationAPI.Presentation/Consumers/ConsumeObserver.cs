@@ -5,7 +5,7 @@ namespace NotificationAPI.Presentation.Consumers
 {
     public class ConsumeObserver : IConsumeObserver
     {
-        private ILogger<ConsumeObserver> _logger;
+        private readonly ILogger<ConsumeObserver> _logger;
 
         public ConsumeObserver(ILogger<ConsumeObserver> logger)
         {
