@@ -16,7 +16,7 @@ namespace NotificationAPI.Presentation.Consumers
         public async Task Consume(ConsumeContext<UserCreated> context)
         {
             var message = context.Message;
-            await _emailSendingService.SendVerifyEmailMessage(message.UserEmail, message.ConfirmEmailUrl);
+            await _emailSendingService.SendVerifyEmailMessage(message.Email, message.ConfirmEmailUrl);
         }
     }
 }

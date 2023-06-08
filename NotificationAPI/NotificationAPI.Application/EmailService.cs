@@ -36,29 +36,5 @@ namespace NotificationAPI.Application
                 await client.DisconnectAsync(true, cancellationToken);
             }
         }
-
-        public async Task SendScheduledEmail(string toEmail, DateTime sendAt,
-            string subject, string message, CancellationToken cancellationToken = default)
-        {
-            using var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress(_settings.SenderName, _settings.EmailAddress));
-            emailMessage.To.Add(new MailboxAddress("", toEmail));
-            emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-            {
-                Text = message
-            };
-            emailMessage.Date = sendAt;
-
-            using (var client = new SmtpClient())
-            {
-                await client.ConnectAsync(_settings.SmtpHost, _settings.SmtpPort, SecureSocketOptions.StartTls, cancellationToken);
-                await client.AuthenticateAsync(_settings.EmailAddress, _settings.Password, cancellationToken);
-                await client.SendAsync(emailMessage, cancellationToken);
-
-                await client.DisconnectAsync(true, cancellationToken);
-            }
-        }
-
     }
 }

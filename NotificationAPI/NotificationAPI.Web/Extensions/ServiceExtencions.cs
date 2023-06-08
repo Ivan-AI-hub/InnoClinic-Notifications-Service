@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using NotificationAPI.Application;
 using NotificationAPI.Application.Abstraction;
+using NotificationAPI.Application.Jobs;
 using NotificationAPI.Domain.Interfaces;
 using NotificationAPI.Persistence;
 using NotificationAPI.Persistence.Repositories;
 using NotificationAPI.Presentation.Consumers;
 using NotificationAPI.Web.Settings;
-
+using Quartz;
 namespace NotificationAPI.Web.Extensions
 {
     public static class ServiceExtencions
@@ -22,6 +23,7 @@ namespace NotificationAPI.Web.Extensions
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IScheduledNotificationRepository, NotificationRepository>();
         }
         public static void ConfigureServices(this IServiceCollection services)
         {
@@ -29,9 +31,20 @@ namespace NotificationAPI.Web.Extensions
             services.AddScoped<IEmailSendingService, EmailSendingService>();
             services.AddScoped<IPatientService, PatientService>();
         }
-        public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration, string massTransitSettingsName)
+
+        public static void ConfigureQuartz(this IServiceCollection services, IConfiguration configuration, string quartzSettingsSectionName)
         {
-            var settings = configuration.GetSection(massTransitSettingsName).Get<MassTransitSettings>();
+            var quartzSettings = configuration.GetSection(quartzSettingsSectionName).Get<QuartzSettings>();
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionJobFactory();
+                q.AddJobAndTrigger<SendNotificationJob>(configuration, quartzSettings.SendNotificationCron);
+            });
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+        }
+        public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration, string massTransitSettingsSectionName)
+        {
+            var settings = configuration.GetSection(massTransitSettingsSectionName).Get<MassTransitSettings>();
             services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<PatientCreatedConsumer>();
@@ -44,7 +57,7 @@ namespace NotificationAPI.Web.Extensions
                         h.Password(settings.Password);
                     });
                     cfg.AddRawJsonSerializer();
-                    cfg.ConfigureEndpoints(context);
+                    cfg.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter(true));
                 });
             });
         }

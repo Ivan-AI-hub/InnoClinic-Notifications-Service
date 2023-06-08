@@ -11,10 +11,12 @@ namespace NotificationAPI.Persistence
         }
 
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<ScheduledNotification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PatientConfigurator());
+            modelBuilder.ApplyConfiguration(new NotificationConfigurator());
         }
     }
 }
