@@ -1,5 +1,6 @@
 using NotificationAPI.Application.Mappings;
 using NotificationAPI.Application.Settings;
+using NotificationAPI.Persistence;
 using NotificationAPI.Web.Extensions;
 using NotificationAPI.Web.Middlewares;
 
@@ -16,6 +17,8 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 builder.Services.AddAutoMapper(typeof(ApplicationMappingProfile));
 
 var app = builder.Build();
+
+app.MigrateDatabase<NotificationContext>();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
