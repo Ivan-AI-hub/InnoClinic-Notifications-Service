@@ -5,6 +5,8 @@ using NotificationAPI.Web.Extensions;
 using NotificationAPI.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.ConfigureLogger(builder.Configuration, builder.Environment, "ElasticConfiguration:Uri");
+
 builder.Services.ConfigureSqlContext(builder.Configuration, "DefaultConnection");
 builder.Services.ConfigureMassTransit(builder.Configuration, "MassTransitSettings");
 builder.Services.ConfigureQuartz(builder.Configuration, "QuartzConfig");
