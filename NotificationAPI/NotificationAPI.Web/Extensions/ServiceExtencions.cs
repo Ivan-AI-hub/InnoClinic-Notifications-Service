@@ -31,6 +31,7 @@ namespace NotificationAPI.Web.Extensions
         }
         public static void ConfigureServices(this IServiceCollection services)
         {
+            services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailSendingService, EmailSendingService>();
             services.AddScoped<IPatientService, PatientService>();
