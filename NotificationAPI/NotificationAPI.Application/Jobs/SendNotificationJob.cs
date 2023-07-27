@@ -6,23 +6,16 @@ namespace NotificationAPI.Application.Jobs
 {
     public class SendNotificationJob : IJob
     {
-        private IScheduledNotificationRepository _notificationRepository;
-        private IEmailService _emailService;
+        private INotificationService _notificationService;
 
-        public SendNotificationJob(IScheduledNotificationRepository notificationRepository, IEmailService emailService)
+        public SendNotificationJob(INotificationService notificationService)
         {
-            _notificationRepository = notificationRepository;
-            _emailService = emailService;
+            _notificationService = notificationService;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var notifications = _notificationRepository.GetByDate(DateTime.UtcNow);
-            foreach (var notification in notifications)
-            {
-                await _emailService.SendAsync(notification.SendToEmail, notification.Subject, notification.Message, context.CancellationToken);
-                await _notificationRepository.DeleteAsync(notification.Id, context.CancellationToken);
-            }
+            await _notificationService.SendAllNotifications(context.CancellationToken);
         }
     }
 }
